@@ -75,15 +75,15 @@
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <!-- Image 1: The uploaded bedroom image -->
+            <!-- Image 1 -->
             <div class="aspect-square rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow bg-brand-sand/30 flex items-center justify-center">
                 <img src="bedroom.jpg" alt="Cozy Bedroom at Kalmaru Haven" onerror="this.style.display='none'" class="w-full h-full object-cover hover:scale-105 transition-transform duration-700">
             </div>
-            <!-- Image 2: The uploaded living room image -->
+            <!-- Image 2 -->
             <div class="aspect-square rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow bg-brand-sand/30 flex items-center justify-center">
                 <img src="livingroom.jpg" alt="Tropical Living Area" onerror="this.style.display='none'" class="w-full h-full object-cover hover:scale-105 transition-transform duration-700">
             </div>
-            <!-- Image 3: Keeping the gorgeous coast placeholder for now! -->
+            <!-- Image 3 -->
             <div class="aspect-square rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow bg-brand-sand/30">
                 <img src="https://images.unsplash.com/photo-1499793983690-e29da59ef1c2?q=80&w=1000&auto=format&fit=crop" alt="Siargao Coast" class="w-full h-full object-cover hover:scale-105 transition-transform duration-700">
             </div>
@@ -114,20 +114,11 @@
             <div id="successMessage" class="hidden text-center py-10">
                 <div class="w-16 h-16 bg-brand-sage text-white rounded-full flex items-center justify-center mx-auto mb-4 text-3xl">✨</div>
                 <h4 class="text-2xl font-medium mb-2 text-brand-dark">Message Sent!</h4>
-                <p class="text-brand-dark/80">Thank you for reaching out. Please check your email for our auto-reply, and we will follow up with availability shortly! 🌴</p>
+                <p class="text-brand-dark/80">Thank you for reaching out. We have received your inquiry and will follow up with availability shortly! 🌴</p>
             </div>
 
-            <!-- The Form -->
+            <!-- The NEW Unlimited Google Sheets Form -->
             <form id="bookingForm" class="space-y-6">
-                
-                <!-- Hidden FormSubmit Configuration -->
-                <!-- Default subject fallback just in case -->
-                <input type="hidden" name="_subject" value="New Booking Inquiry - Kalmaru Haven!">
-                <input type="hidden" name="_template" value="table">
-                <input type="hidden" name="_captcha" value="false">
-                
-                <!-- This triggers FormSubmit's built-in auto-reply directly to the guest! -->
-                <input type="hidden" name="_autoresponse" value="Hey there! 👋 Thank you so much for reaching out to Kalmaru Haven! This is just a quick note to let you know we received your booking inquiry. We are currently checking our calendar and will get back to you within 2 hours with our availability and the next steps to secure your cozy island retreat. ✨ Talk soon, Tawing & the Kalmaru Haven Team 🌿">
                 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
@@ -173,10 +164,13 @@
         <p class="text-brand-light/40 text-xs">© 2026 Kalmaru Haven. All rights reserved.</p>
     </footer>
 
-    <!-- Background Script to handle form submission without redirecting the page -->
+    <!-- Background Script connecting to your private Google Sheet -->
     <script>
+        // PASTE YOUR GOOGLE APP SCRIPT URL HERE 👇
+        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw4mM10c0JFwrxjU-8w8EeLaFApzYodJ25bGib3TntDhcoSiZd_ddAP7QaoItfZ4PMcdw/exec';
+
         document.getElementById('bookingForm').addEventListener('submit', function(e) {
-            e.preventDefault(); // Stop normal form submission redirect
+            e.preventDefault(); 
             
             const form = e.target;
             const btn = document.getElementById('submitBtn');
@@ -187,45 +181,26 @@
             btn.disabled = true;
             btn.classList.add('opacity-70', 'cursor-not-allowed');
 
-            // Convert the form fields into JSON format
-            const formData = new FormData(form);
-            const object = {};
-            formData.forEach(function(value, key) {
-                object[key] = value;
-            });
-            
-            // 🌟 Make the subject line unique to prevent Gmail from clustering them into a messy thread!
-            if (object['Guest_Name']) {
-                object['_subject'] = `New Booking: ${object['Guest_Name']} - Kalmaru Haven`;
-            }
+            // Format data perfectly for Google Sheets
+            const data = new URLSearchParams(new FormData(form));
 
-            const json = JSON.stringify(object);
-
-            // Send data silently in the background
-            fetch('https://formsubmit.co/ajax/kalmaruhaven@gmail.com', {
+            fetch(GOOGLE_SCRIPT_URL, {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json'
-                },
-                body: json
+                body: data
             })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json();
-            })
+            .then(response => response.json())
             .then(data => {
-                // If successful, hide the form and show the happy success message!
-                form.classList.add('hidden');
-                successDiv.classList.remove('hidden');
-                // Scroll slightly up to ensure they see the message
-                successDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                if (data.result === 'success') {
+                    // Success! Show the happy message
+                    form.classList.add('hidden');
+                    successDiv.classList.remove('hidden');
+                    successDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                } else {
+                    throw new Error('Script Error');
+                }
             })
             .catch(error => {
-                // If it fails, restore the button so they can try again
-                console.error('Error:', error);
+                console.error(error);
                 alert('Oops! There was a connection error. Please try again.');
                 btn.innerHTML = 'Send Inquiry';
                 btn.disabled = false;
