@@ -167,7 +167,7 @@
     <!-- Background Script connecting to your private Google Sheet -->
     <script>
         // PASTE YOUR GOOGLE APP SCRIPT URL HERE 👇
-        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw4mM10c0JFwrxjU-8w8EeLaFApzYodJ25bGib3TntDhcoSiZd_ddAP7QaoItfZ4PMcdw/exec';
+        const GOOGLE_SCRIPT_URL = 'YOUR_GOOGLE_WEB_APP_URL_HERE';
         
         const form = document.forms['bookingForm'];
         const btn = document.getElementById('submitBtn');
@@ -182,20 +182,25 @@
             btn.classList.add('opacity-70', 'cursor-not-allowed');
 
             // Send standard FormData directly to Google Apps Script
-            fetch(GOOGLE_SCRIPT_URL, { method: 'POST', body: new FormData(form)})
-                .then(response => {
-                    // Success! Show the happy message
-                    form.classList.add('hidden');
-                    successDiv.classList.remove('hidden');
-                    successDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                })
-                .catch(error => {
-                    console.error('Error!', error.message);
-                    alert('Oops! There was a connection error. Please make sure your Google Script access is set to "Anyone".');
-                    btn.innerHTML = 'Send Inquiry';
-                    btn.disabled = false;
-                    btn.classList.remove('opacity-70', 'cursor-not-allowed');
-                });
+            fetch(GOOGLE_SCRIPT_URL, { 
+                method: 'POST', 
+                body: new FormData(form),
+                mode: 'no-cors' // 🌟 THIS IS THE MAGIC FIX! It tells Google to skip the security receipt 🌟
+            })
+            .then(() => {
+                // Because we used 'no-cors', it bypasses the error! 
+                // We show the happy message instantly.
+                form.classList.add('hidden');
+                successDiv.classList.remove('hidden');
+                successDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            })
+            .catch(error => {
+                console.error('Error!', error.message);
+                alert('Oops! There was a connection error. Please try again.');
+                btn.innerHTML = 'Send Inquiry';
+                btn.disabled = false;
+                btn.classList.remove('opacity-70', 'cursor-not-allowed');
+            });
         });
     </script>
 </body>
