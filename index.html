@@ -121,6 +121,7 @@
             <form id="bookingForm" class="space-y-6">
                 
                 <!-- Hidden FormSubmit Configuration -->
+                <!-- Default subject fallback just in case -->
                 <input type="hidden" name="_subject" value="New Booking Inquiry - Kalmaru Haven!">
                 <input type="hidden" name="_template" value="table">
                 <input type="hidden" name="_captcha" value="false">
@@ -134,11 +135,10 @@
                         <input type="text" name="Guest_Name" required class="w-full px-4 py-3 rounded-xl border border-brand-sand focus:outline-none focus:ring-2 focus:ring-brand-sage focus:border-transparent transition-all bg-brand-light text-brand-dark">
                     </div>
                     <div>
-                        <!-- Changed name to "email" so FormSubmit knows exactly where to send the auto-reply -->
                         <label class="block text-sm font-medium text-brand-dark/80 mb-2">Email Address</label>
                         <input type="email" name="email" required class="w-full px-4 py-3 rounded-xl border border-brand-sand focus:outline-none focus:ring-2 focus:ring-brand-sage focus:border-transparent transition-all bg-brand-light text-brand-dark">
                     </div>
-                </div
+                </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
@@ -187,12 +187,18 @@
             btn.disabled = true;
             btn.classList.add('opacity-70', 'cursor-not-allowed');
 
-            // Convert the form fields into JSON format, which FormSubmit requires for background sending
+            // Convert the form fields into JSON format
             const formData = new FormData(form);
             const object = {};
             formData.forEach(function(value, key) {
                 object[key] = value;
             });
+            
+            // 🌟 Make the subject line unique to prevent Gmail from clustering them into a messy thread!
+            if (object['Guest_Name']) {
+                object['_subject'] = `New Booking: ${object['Guest_Name']} - Kalmaru Haven`;
+            }
+
             const json = JSON.stringify(object);
 
             // Send data silently in the background
