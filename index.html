@@ -118,7 +118,7 @@
             </div>
 
             <!-- The NEW Unlimited Google Sheets Form -->
-            <form id="bookingForm" class="space-y-6">
+            <form id="bookingForm" name="bookingForm" class="space-y-6">
                 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
@@ -168,44 +168,34 @@
     <script>
         // PASTE YOUR GOOGLE APP SCRIPT URL HERE 👇
         const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw4mM10c0JFwrxjU-8w8EeLaFApzYodJ25bGib3TntDhcoSiZd_ddAP7QaoItfZ4PMcdw/exec';
+        
+        const form = document.forms['bookingForm'];
+        const btn = document.getElementById('submitBtn');
+        const successDiv = document.getElementById('successMessage');
 
-        document.getElementById('bookingForm').addEventListener('submit', function(e) {
+        form.addEventListener('submit', e => {
             e.preventDefault(); 
-            
-            const form = e.target;
-            const btn = document.getElementById('submitBtn');
-            const successDiv = document.getElementById('successMessage');
             
             // Change button text to show it's working
             btn.innerHTML = 'Sending... 🌴';
             btn.disabled = true;
             btn.classList.add('opacity-70', 'cursor-not-allowed');
 
-            // Format data perfectly for Google Sheets
-            const data = new URLSearchParams(new FormData(form));
-
-            fetch(GOOGLE_SCRIPT_URL, {
-                method: 'POST',
-                body: data
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.result === 'success') {
+            // Send standard FormData directly to Google Apps Script
+            fetch(GOOGLE_SCRIPT_URL, { method: 'POST', body: new FormData(form)})
+                .then(response => {
                     // Success! Show the happy message
                     form.classList.add('hidden');
                     successDiv.classList.remove('hidden');
                     successDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                } else {
-                    throw new Error('Script Error');
-                }
-            })
-            .catch(error => {
-                console.error(error);
-                alert('Oops! There was a connection error. Please try again.');
-                btn.innerHTML = 'Send Inquiry';
-                btn.disabled = false;
-                btn.classList.remove('opacity-70', 'cursor-not-allowed');
-            });
+                })
+                .catch(error => {
+                    console.error('Error!', error.message);
+                    alert('Oops! There was a connection error. Please make sure your Google Script access is set to "Anyone".');
+                    btn.innerHTML = 'Send Inquiry';
+                    btn.disabled = false;
+                    btn.classList.remove('opacity-70', 'cursor-not-allowed');
+                });
         });
     </script>
 </body>
