@@ -104,20 +104,29 @@
 
     <!-- Booking Form Section -->
     <section id="book" class="py-16 px-6 max-w-3xl mx-auto flex-grow">
-        <div class="bg-brand-card p-8 md:p-12 rounded-[2rem] shadow-sm border border-brand-sand/40">
+        <div class="bg-brand-card p-8 md:p-12 rounded-[2rem] shadow-sm border border-brand-sand/40 relative">
             <div class="text-center mb-10">
                 <h3 class="text-3xl font-medium mb-3 text-brand-dark">Request to Book 💌</h3>
-                <p class="text-brand-dark/70 text-sm font-light">Select your dates below. We'll reply within 2 hours with availability and payment details via GCash/Bank Transfer.</p>
+                <p class="text-brand-dark/70 text-sm font-light">Select your dates below. We'll reply within 2 hours with availability and payment details.</p>
             </div>
 
-            <!-- The Form is now safely connected to FormSubmit! -->
-            <form action="https://formsubmit.co/kalmaruhaven@gmail.com" method="POST" class="space-y-6">
+            <!-- Success Message (Hidden by default) -->
+            <div id="successMessage" class="hidden text-center py-10">
+                <div class="w-16 h-16 bg-brand-sage text-white rounded-full flex items-center justify-center mx-auto mb-4 text-3xl">✨</div>
+                <h4 class="text-2xl font-medium mb-2 text-brand-dark">Message Sent!</h4>
+                <p class="text-brand-dark/80">Thank you for reaching out. Please check your email for our auto-reply, and we will follow up with availability shortly! 🌴</p>
+            </div>
+
+            <!-- The Form -->
+            <form id="bookingForm" class="space-y-6">
                 
-                <!-- Hidden security & styling tags for FormSubmit -->
+                <!-- Hidden FormSubmit Configuration -->
                 <input type="hidden" name="_subject" value="New Booking Inquiry - Kalmaru Haven!">
                 <input type="hidden" name="_template" value="table">
-                <!-- Removes the confusing captcha so it is a smooth experience -->
                 <input type="hidden" name="_captcha" value="false">
+                
+                <!-- This triggers FormSubmit's built-in auto-reply directly to the guest! -->
+                <input type="hidden" name="_autoresponse" value="Hey there! 👋 Thank you so much for reaching out to Kalmaru Haven! This is just a quick note to let you know we received your booking inquiry. We are currently checking our calendar and will get back to you within 2 hours with our availability and the next steps to secure your cozy island retreat. ✨ Talk soon, Tawing & the Kalmaru Haven Team 🌿">
                 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
@@ -125,8 +134,9 @@
                         <input type="text" name="Guest_Name" required class="w-full px-4 py-3 rounded-xl border border-brand-sand focus:outline-none focus:ring-2 focus:ring-brand-sage focus:border-transparent transition-all bg-brand-light text-brand-dark">
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-brand-dark/80 mb-2">Email or WhatsApp Number</label>
-                        <input type="text" name="Contact_Info" required class="w-full px-4 py-3 rounded-xl border border-brand-sand focus:outline-none focus:ring-2 focus:ring-brand-sage focus:border-transparent transition-all bg-brand-light text-brand-dark">
+                        <!-- Changed name to "email" so FormSubmit knows exactly where to send the auto-reply -->
+                        <label class="block text-sm font-medium text-brand-dark/80 mb-2">Email Address</label>
+                        <input type="email" name="email" required class="w-full px-4 py-3 rounded-xl border border-brand-sand focus:outline-none focus:ring-2 focus:ring-brand-sage focus:border-transparent transition-all bg-brand-light text-brand-dark">
                     </div>
                 </div>
 
@@ -149,7 +159,7 @@
                     </select>
                 </div>
 
-                <button type="submit" class="w-full bg-brand-sage text-white mt-4 py-4 rounded-xl font-medium hover:bg-[#5a6855] transition-colors shadow-sm text-lg">
+                <button type="submit" id="submitBtn" class="w-full bg-brand-sage text-white mt-4 py-4 rounded-xl font-medium hover:bg-[#5a6855] transition-colors shadow-sm text-lg flex justify-center items-center">
                     Send Inquiry
                 </button>
             </form>
@@ -163,5 +173,44 @@
         <p class="text-brand-light/40 text-xs">© 2026 Kalmaru Haven. All rights reserved.</p>
     </footer>
 
+    <!-- Background Script to handle form submission without redirecting the page -->
+    <script>
+        document.getElementById('bookingForm').addEventListener('submit', function(e) {
+            e.preventDefault(); // Stop normal form submission redirect
+            
+            const form = e.target;
+            const btn = document.getElementById('submitBtn');
+            const successDiv = document.getElementById('successMessage');
+            
+            // Change button text to show it's working
+            btn.innerHTML = 'Sending... 🌴';
+            btn.disabled = true;
+            btn.classList.add('opacity-70', 'cursor-not-allowed');
+
+            // Send data silently in the background
+            fetch('https://formsubmit.co/ajax/kalmaruhaven@gmail.com', {
+                method: 'POST',
+                body: new FormData(form),
+                headers: {
+                    'Accept': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                // If successful, hide the form and show the happy success message!
+                form.classList.add('hidden');
+                successDiv.classList.remove('hidden');
+                // Scroll slightly up to ensure they see the message
+                successDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            })
+            .catch(error => {
+                // If it fails, restore the button so they can try again
+                alert('Oops! There was a connection error. Please try again.');
+                btn.innerHTML = 'Send Inquiry';
+                btn.disabled = false;
+                btn.classList.remove('opacity-70', 'cursor-not-allowed');
+            });
+        });
+    </script>
 </body>
 </html>
