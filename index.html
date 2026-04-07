@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kalmaru Haven | Boutique Homestay in Siargao</title>
+    
+    <!-- Google Fonts for a cozy, clean look -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS via CDN for instant styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Custom Tailwind Configuration -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Outfit', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            light: '#fdfbf7', // Warm off-white
+                            sand: '#e8e0d5',
+                            earth: '#8b5a2b', // Cozy brown/orange
+                            dark: '#2d2a26',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { background-color: #fdfbf7; color: #2d2a26; }
+        .hero-bg {
+            /* Using a beautiful tropical placeholder image */
+            background-image: linear-gradient(to bottom, rgba(45, 42, 38, 0.3), rgba(45, 42, 38, 0.6)), url('https://images.unsplash.com/photo-1540541338287-41700207dee6?q=80&w=2070&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+        }
+    </style>
+</head>
+<body class="antialiased font-sans flex flex-col min-h-screen">
+
+    <!-- Navbar -->
+    <nav class="fixed w-full z-50 bg-brand-light/90 backdrop-blur-sm border-b border-brand-sand">
+        <div class="max-w-5xl mx-auto px-6 py-4 flex justify-between items-center">
+            <h1 class="text-xl font-semibold tracking-wide text-brand-earth">Kalmaru Haven</h1>
+            <a href="#book" class="text-sm font-medium hover:text-brand-earth transition-colors">Book Now</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero-bg h-[80vh] flex items-center justify-center text-center px-4 mt-14">
+        <div class="max-w-2xl text-white">
+            <p class="text-sm md:text-base uppercase tracking-[0.2em] mb-4 opacity-90">General Luna, Siargao</p>
+            <h2 class="text-4xl md:text-6xl font-semibold mb-6 leading-tight">Your boutique island retreat.</h2>
+            <p class="text-lg md:text-xl font-light mb-10 opacity-90">Good vibes, cozy nights, and endless island days. Welcome home. 🌴</p>
+            <a href="#book" class="bg-brand-light text-brand-dark px-8 py-3 rounded-full font-medium hover:bg-brand-sand transition-all duration-300 shadow-lg">
+                Reserve Your Stay
+            </a>
+        </div>
+    </header>
+
+    <!-- Vibe / Gallery Section -->
+    <section class="py-20 px-6 max-w-5xl mx-auto">
+        <div class="text-center mb-16">
+            <h3 class="text-3xl font-semibold mb-4 text-brand-dark">A mindful, cozy retreat.</h3>
+            <p class="text-gray-600 max-w-lg mx-auto">Located in the heart of GL, Kalmaru Haven is your peaceful home base for all things Siargao. Fast WiFi, cold AC, and absolute comfort.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <!-- Image 1 -->
+            <div class="aspect-square rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+                <img src="https://images.unsplash.com/photo-1522771731478-446370c802f7?q=80&w=1000&auto=format&fit=crop" alt="Cozy Bedroom" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
+            </div>
+            <!-- Image 2 -->
+            <div class="aspect-square rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+                <img src="https://images.unsplash.com/photo-1582719478250-c8940ce373d1?q=80&w=1000&auto=format&fit=crop" alt="Tropical Interior" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
+            </div>
+            <!-- Image 3 -->
+            <div class="aspect-square rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+                <img src="https://images.unsplash.com/photo-1499793983690-e29da59ef1c2?q=80&w=1000&auto=format&fit=crop" alt="Siargao Coast" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
+            </div>
+        </div>
+    </section>
+
+    <!-- Amenities Section -->
+    <section class="bg-brand-sand/30 py-16 px-6">
+        <div class="max-w-3xl mx-auto text-center">
+            <h3 class="text-2xl font-semibold mb-8">What to expect ✨</h3>
+            <div class="flex flex-wrap justify-center gap-4">
+                <span class="bg-white px-4 py-2 rounded-full text-sm shadow-sm border border-brand-sand">❄️ Air Conditioning</span>
+                <span class="bg-white px-4 py-2 rounded-full text-sm shadow-sm border border-brand-sand">🚀 Fast Starlink WiFi</span>
+                <span class="bg-white px-4 py-2 rounded-full text-sm shadow-sm border border-brand-sand">🚿 Hot & Cold Shower</span>
+                <span class="bg-white px-4 py-2 rounded-full text-sm shadow-sm border border-brand-sand">🛵 Scooter Parking</span>
+                <span class="bg-white px-4 py-2 rounded-full text-sm shadow-sm border border-brand-sand">☕ Free Morning Coffee</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Booking Form Section -->
+    <section id="book" class="py-20 px-6 max-w-3xl mx-auto flex-grow">
+        <div class="bg-white p-8 md:p-12 rounded-3xl shadow-sm border border-brand-sand">
+            <div class="text-center mb-8">
+                <h3 class="text-3xl font-semibold mb-2">Request to Book 💌</h3>
+                <p class="text-gray-500 text-sm">Select your dates below. We'll reply within 2 hours with availability and payment details via GCash/Bank Transfer.</p>
+            </div>
+
+            <!-- The Form -->
+            <form id="bookingForm" class="space-y-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
+                        <input type="text" id="guestName" required class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-brand-earth focus:border-transparent transition-all bg-gray-50">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Email or WhatsApp Number</label>
+                        <input type="text" id="guestContact" required class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-brand-earth focus:border-transparent transition-all bg-gray-50">
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Check-in Date</label>
+                        <input type="date" id="checkIn" required class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-brand-earth focus:border-transparent transition-all bg-gray-50">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Check-out Date</label>
+                        <input type="date" id="checkOut" required class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-brand-earth focus:border-transparent transition-all bg-gray-50">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Number of Guests</label>
+                    <select id="guestCount" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-brand-earth focus:border-transparent transition-all bg-gray-50">
+                        <option value="1">1 Person</option>
+                        <option value="2" selected>2 People</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="w-full bg-brand-earth text-white py-4 rounded-xl font-medium hover:bg-orange-900 transition-colors shadow-md text-lg">
+                    Send Inquiry
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-brand-dark text-white py-10 text-center">
+        <h4 class="text-xl font-semibold mb-2">Kalmaru Haven</h4>
+        <p class="text-gray-400 text-sm mb-6">General Luna, Siargao Island, Philippines</p>
+        <p class="text-gray-500 text-xs">© 2026 Kalmaru Haven. All rights reserved.</p>
+    </footer>
+
+    <!-- Script to handle form submission without a backend -->
+    <script>
+        document.getElementById('bookingForm').addEventListener('submit', function(e) {
+            e.preventDefault(); // Prevent page refresh
+            
+            // Get values
+            const name = document.getElementById('guestName').value;
+            const contact = document.getElementById('guestContact').value;
+            const checkIn = document.getElementById('checkIn').value;
+            const checkOut = document.getElementById('checkOut').value;
+            const guests = document.getElementById('guestCount').value;
+
+            // CHANGE THIS TO YOUR ACTUAL EMAIL ADDRESS
+            const yourEmail = "kalmaruhaven@gmail.com"; 
+            
+            const subject = encodeURIComponent(`Booking Inquiry: ${name} - Kalmaru Haven`);
+            const body = encodeURIComponent(
+                `Hi Kalmaru Haven team!\n\n` +
+                `I would like to request a booking with the following details:\n\n` +
+                `Name: ${name}\n` +
+                `Contact: ${contact}\n` +
+                `Check-in: ${checkIn}\n` +
+                `Check-out: ${checkOut}\n` +
+                `Guests: ${guests}\n\n` +
+                `Please let me know if these dates are available and send over the payment details.\n\n` +
+                `Thanks!`
+            );
+
+            // Open the default email client
+            window.location.href = `mailto:${yourEmail}?subject=${subject}&body=${body}`;
+        });
+    </script>
+</body>
+</html>
