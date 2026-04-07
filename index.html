@@ -138,7 +138,7 @@
                         <label class="block text-sm font-medium text-brand-dark/80 mb-2">Email Address</label>
                         <input type="email" name="email" required class="w-full px-4 py-3 rounded-xl border border-brand-sand focus:outline-none focus:ring-2 focus:ring-brand-sage focus:border-transparent transition-all bg-brand-light text-brand-dark">
                     </div>
-                </div>
+                </div
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
@@ -187,15 +187,29 @@
             btn.disabled = true;
             btn.classList.add('opacity-70', 'cursor-not-allowed');
 
+            // Convert the form fields into JSON format, which FormSubmit requires for background sending
+            const formData = new FormData(form);
+            const object = {};
+            formData.forEach(function(value, key) {
+                object[key] = value;
+            });
+            const json = JSON.stringify(object);
+
             // Send data silently in the background
             fetch('https://formsubmit.co/ajax/kalmaruhaven@gmail.com', {
                 method: 'POST',
-                body: new FormData(form),
                 headers: {
+                    'Content-Type': 'application/json',
                     'Accept': 'application/json'
-                }
+                },
+                body: json
             })
-            .then(response => response.json())
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
             .then(data => {
                 // If successful, hide the form and show the happy success message!
                 form.classList.add('hidden');
@@ -205,6 +219,7 @@
             })
             .catch(error => {
                 // If it fails, restore the button so they can try again
+                console.error('Error:', error);
                 alert('Oops! There was a connection error. Please try again.');
                 btn.innerHTML = 'Send Inquiry';
                 btn.disabled = false;
