@@ -1,207 +1,408 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kalmaru Haven | Boutique Homestay in Siargao</title>
-    
-    <!-- Google Fonts for a cozy, organic look -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
-    
-    <!-- Tailwind CSS via CDN for instant styling -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- Custom Tailwind Configuration -->
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Outfit', 'sans-serif'],
-                    },
-                    colors: {
-                        brand: {
-                            light: '#e8e4d9', // Warmer, deeper oat
-                            sand: '#d0c9b6',  // Muted warm greige
-                            sage: '#6b7a65',  // Calming sage green
-                            earth: '#8b7355', // Soft warm wood
-                            dark: '#4a463d',  // Gentle dark brown
-                            card: '#f0ede4',  // Very soft off-white
-                        }
-                    }
-                }
-            }
-        }
-    </script>
-    <style>
-        body { background-color: #e8e4d9; color: #4a463d; }
-        .hero-bg {
-            /* Warmer, softer overlay on the image */
-            background-image: linear-gradient(to bottom, rgba(74, 70, 61, 0.4), rgba(74, 70, 61, 0.7)), url('https://images.unsplash.com/photo-1540541338287-41700207dee6?q=80&w=2070&auto=format&fit=crop');
-            background-size: cover;
-            background-position: center;
-        }
-    </style>
-</head>
-<body class="antialiased font-sans flex flex-col min-h-screen">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kalmaru Haven | Boutique Homestay in Siargao</title>
+  <meta name="description" content="Boutique homestay in General Luna, Siargao with cozy interiors, Starlink WiFi, cold AC, and island comfort.">
 
-    <!-- Navbar -->
-    <nav class="fixed w-full z-50 bg-brand-light/80 backdrop-blur-md border-b border-brand-sand">
-        <div class="max-w-5xl mx-auto px-6 py-4 flex justify-between items-center">
-            <h1 class="text-xl font-medium tracking-wide text-brand-dark">Kalmaru Haven</h1>
-            <a href="#book" class="text-sm font-medium text-brand-sage hover:text-brand-dark transition-colors">Book Now</a>
-        </div>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Outfit', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              light: '#e8e4d9',
+              sand: '#d0c9b6',
+              sage: '#6b7a65',
+              earth: '#8b7355',
+              dark: '#4a463d',
+              card: '#f0ede4',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    * { box-sizing: border-box; }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Outfit', sans-serif;
+      background: #e8e4d9;
+      color: #4a463d;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+    .page-wrap {
+      width: 100%;
+      overflow-x: hidden;
+    }
+
+    .container-safe {
+      width: min(100%, 1100px);
+      margin: 0 auto;
+      padding-left: 24px;
+      padding-right: 24px;
+    }
+
+    .hero-bg {
+      background-image:
+        linear-gradient(to bottom, rgba(74, 70, 61, 0.35), rgba(74, 70, 61, 0.7)),
+        url('https://images.unsplash.com/photo-1540541338287-41700207dee6?q=80&w=2070&auto=format&fit=crop');
+      background-size: cover;
+      background-position: center;
+      min-height: 80vh;
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+
+    .gallery-card {
+      background: rgba(208, 201, 182, 0.3);
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+      height: 320px;
+    }
+
+    .gallery-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .booking-card {
+      background: #f0ede4;
+      border: 1px solid rgba(208, 201, 182, 0.5);
+      border-radius: 32px;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+    }
+
+    .pill {
+      display: inline-block;
+      background: #f0ede4;
+      border: 1px solid rgba(208, 201, 182, 0.5);
+      border-radius: 999px;
+      padding: 10px 18px;
+      font-size: 14px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    }
+
+    .field,
+    .select-field {
+      width: 100%;
+      padding: 14px 16px;
+      border-radius: 14px;
+      border: 1px solid #d0c9b6;
+      background: #e8e4d9;
+      color: #4a463d;
+      font: inherit;
+    }
+
+    .field:focus,
+    .select-field:focus {
+      outline: 2px solid rgba(107, 122, 101, 0.35);
+      border-color: #6b7a65;
+    }
+
+    .btn-primary {
+      width: 100%;
+      border: 0;
+      border-radius: 14px;
+      padding: 16px 20px;
+      background: #6b7a65;
+      color: white;
+      font: inherit;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.2s ease, opacity 0.2s ease;
+    }
+
+    .btn-primary:hover {
+      background: #5a6855;
+    }
+
+    .btn-primary:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+    }
+
+    .hidden-safe {
+      display: none !important;
+    }
+
+    @media (min-width: 768px) {
+      .gallery-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .gallery-card {
+        height: 340px;
+      }
+
+      .form-grid-2 {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 24px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page-wrap">
+    <nav class="fixed top-0 left-0 right-0 z-50" style="background: rgba(232, 228, 217, 0.85); backdrop-filter: blur(10px); border-bottom: 1px solid #d0c9b6;">
+      <div class="container-safe" style="display:flex; justify-content:space-between; align-items:center; padding-top:16px; padding-bottom:16px;">
+        <h1 style="margin:0; font-size:20px; font-weight:500; letter-spacing:0.02em;">Kalmaru Haven</h1>
+        <a href="#book" style="text-decoration:none; color:#6b7a65; font-size:14px; font-weight:500;">Book Now</a>
+      </div>
     </nav>
 
-    <!-- Hero Section -->
-    <header class="hero-bg h-[80vh] flex items-center justify-center text-center px-4 mt-14">
-        <div class="max-w-2xl text-brand-card">
-            <p class="text-sm md:text-base uppercase tracking-[0.2em] mb-4 opacity-90 text-brand-sand">General Luna, Siargao</p>
-            <h2 class="text-4xl md:text-6xl font-medium mb-6 leading-tight">Your boutique island retreat.</h2>
-            <p class="text-lg md:text-xl font-light mb-10 opacity-90">Good vibes, cozy nights, and endless island days. Welcome home. 🌿</p>
-            <a href="#book" class="bg-brand-sage text-white px-8 py-3 rounded-full font-medium hover:bg-[#5a6855] transition-all duration-300 shadow-sm">
-                Reserve Your Stay
-            </a>
-        </div>
+    <header class="hero-bg" style="display:flex; align-items:center; justify-content:center; text-align:center; padding:120px 24px 48px;">
+      <div style="max-width:760px; color:#f0ede4;">
+        <p style="margin:0 0 16px; font-size:14px; letter-spacing:0.2em; text-transform:uppercase; color:#d0c9b6;">General Luna, Siargao</p>
+        <h2 style="margin:0 0 24px; font-size:clamp(40px, 7vw, 64px); line-height:1.1; font-weight:500;">
+          Your boutique island retreat.
+        </h2>
+        <p style="margin:0 0 32px; font-size:clamp(18px, 3vw, 22px); font-weight:300; opacity:0.95;">
+          Good vibes, cozy nights, and endless island days. Welcome home. 🌿
+        </p>
+        <a href="#book" style="display:inline-block; text-decoration:none; background:#6b7a65; color:white; padding:14px 30px; border-radius:999px; font-weight:500;">
+          Reserve Your Stay
+        </a>
+      </div>
     </header>
 
-    <!-- Vibe / Gallery Section -->
-    <section class="py-20 px-6 max-w-5xl mx-auto">
-        <div class="text-center mb-16">
-            <h3 class="text-3xl font-medium mb-4 text-brand-dark">A mindful, cozy retreat.</h3>
-            <p class="text-brand-dark/80 max-w-lg mx-auto font-light">Located in the heart of GL, Kalmaru Haven is your peaceful home base for all things Siargao. Fast WiFi, cold AC, and absolute comfort.</p>
+    <section style="padding:80px 0;">
+      <div class="container-safe">
+        <div style="text-align:center; margin-bottom:56px;">
+          <h3 style="margin:0 0 16px; font-size:32px; font-weight:500;">A mindful, cozy retreat.</h3>
+          <p style="max-width:640px; margin:0 auto; font-weight:300; color:rgba(74,70,61,0.85);">
+            Located in the heart of GL, Kalmaru Haven is your peaceful home base for all things Siargao.
+            Fast WiFi, cold AC, and absolute comfort.
+          </p>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <!-- Image 1 -->
-            <div class="aspect-square rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow bg-brand-sand/30 flex items-center justify-center">
-                <img src="bedroom.jpg" alt="Cozy Bedroom at Kalmaru Haven" onerror="this.style.display='none'" class="w-full h-full object-cover hover:scale-105 transition-transform duration-700">
-            </div>
-            <!-- Image 2 -->
-            <div class="aspect-square rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow bg-brand-sand/30 flex items-center justify-center">
-                <img src="livingroom.jpg" alt="Tropical Living Area" onerror="this.style.display='none'" class="w-full h-full object-cover hover:scale-105 transition-transform duration-700">
-            </div>
-            <!-- Image 3 -->
-            <div class="aspect-square rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow bg-brand-sand/30">
-                <img src="https://images.unsplash.com/photo-1499793983690-e29da59ef1c2?q=80&w=1000&auto=format&fit=crop" alt="Siargao Coast" class="w-full h-full object-cover hover:scale-105 transition-transform duration-700">
-            </div>
+        <div class="gallery-grid">
+          <div class="gallery-card">
+            <img src="bedroom.jpg" alt="Cozy bedroom at Kalmaru Haven" loading="lazy">
+          </div>
+          <div class="gallery-card">
+            <img src="livingroom.jpg" alt="Tropical living area" loading="lazy">
+          </div>
+          <div class="gallery-card">
+            <img src="https://images.unsplash.com/photo-1499793983690-e29da59ef1c2?q=80&w=1000&auto=format&fit=crop" alt="Siargao coast" loading="lazy">
+          </div>
         </div>
+      </div>
     </section>
 
-    <!-- Amenities Section -->
-    <section class="py-16 px-6">
-        <div class="max-w-3xl mx-auto text-center">
-            <h3 class="text-2xl font-medium mb-8 text-brand-dark">What to expect ✨</h3>
-            <div class="flex flex-wrap justify-center gap-4">
-                <span class="bg-brand-card text-brand-dark px-5 py-2.5 rounded-full text-sm shadow-sm border border-brand-sand/50">❄️ Air Conditioning</span>
-                <span class="bg-brand-card text-brand-dark px-5 py-2.5 rounded-full text-sm shadow-sm border border-brand-sand/50">🚀 Fast Starlink WiFi</span>
-                <span class="bg-brand-card text-brand-dark px-5 py-2.5 rounded-full text-sm shadow-sm border border-brand-sand/50">🚿 Hot & Cold Shower</span>
-            </div>
+    <section style="padding:24px 0 64px;">
+      <div class="container-safe" style="text-align:center;">
+        <h3 style="margin:0 0 32px; font-size:28px; font-weight:500;">What to expect ✨</h3>
+        <div style="display:flex; flex-wrap:wrap; justify-content:center; gap:12px;">
+          <span class="pill">❄️ Air Conditioning</span>
+          <span class="pill">🚀 Fast Starlink WiFi</span>
+          <span class="pill">🚿 Hot & Cold Shower</span>
         </div>
+      </div>
     </section>
 
-    <!-- Booking Form Section -->
-    <section id="book" class="py-16 px-6 max-w-3xl mx-auto flex-grow">
-        <div class="bg-brand-card p-8 md:p-12 rounded-[2rem] shadow-sm border border-brand-sand/40 relative">
-            <div class="text-center mb-10">
-                <h3 class="text-3xl font-medium mb-3 text-brand-dark">Request to Book 💌</h3>
-                <p class="text-brand-dark/70 text-sm font-light">Select your dates below. We'll reply within 2 hours with availability and payment details.</p>
+    <section id="book" style="padding:32px 0 80px;">
+      <div class="container-safe" style="max-width:820px;">
+        <div class="booking-card" style="padding:32px;">
+          <div style="text-align:center; margin-bottom:36px;">
+            <h3 style="margin:0 0 12px; font-size:34px; font-weight:500;">Request to Book 💌</h3>
+            <p style="margin:0; color:rgba(74,70,61,0.7); font-size:14px; font-weight:300;">
+              Select your dates below and we’ll send availability and payment details.
+            </p>
+          </div>
+
+          <div id="formMessage" class="hidden-safe" aria-live="polite" style="margin-bottom:24px; border-radius:14px; padding:14px 16px; font-size:14px;"></div>
+
+          <div id="successMessage" class="hidden-safe" aria-live="polite" style="text-align:center; padding:28px 0;">
+            <div style="width:64px; height:64px; background:#6b7a65; color:white; border-radius:999px; display:flex; align-items:center; justify-content:center; margin:0 auto 16px; font-size:30px;">✨</div>
+            <h4 style="margin:0 0 10px; font-size:28px; font-weight:500;">Message Sent!</h4>
+            <p style="margin:0; color:rgba(74,70,61,0.85);">
+              Thank you for reaching out. We received your inquiry and will follow up shortly.
+            </p>
+          </div>
+
+          <form id="bookingForm" style="display:block;">
+            <div style="display:none;" aria-hidden="true">
+              <label for="website">Website</label>
+              <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
             </div>
 
-            <!-- Success Message (Hidden by default) -->
-            <div id="successMessage" class="hidden text-center py-10">
-                <div class="w-16 h-16 bg-brand-sage text-white rounded-full flex items-center justify-center mx-auto mb-4 text-3xl">✨</div>
-                <h4 class="text-2xl font-medium mb-2 text-brand-dark">Message Sent!</h4>
-                <p class="text-brand-dark/80">Thank you for reaching out. We have received your inquiry and will follow up with availability shortly! 🌴</p>
+            <div class="form-grid-2" style="margin-bottom:24px;">
+              <div>
+                <label for="guestName" style="display:block; margin-bottom:8px; font-size:14px; font-weight:500;">Full Name</label>
+                <input id="guestName" class="field" type="text" name="Guest_Name" required autocomplete="name">
+              </div>
+              <div>
+                <label for="email" style="display:block; margin-bottom:8px; font-size:14px; font-weight:500;">Email Address</label>
+                <input id="email" class="field" type="email" name="email" required autocomplete="email">
+              </div>
             </div>
 
-            <!-- The NEW Unlimited Google Sheets Form -->
-            <form id="bookingForm" name="bookingForm" class="space-y-6">
-                
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div>
-                        <label class="block text-sm font-medium text-brand-dark/80 mb-2">Full Name</label>
-                        <input type="text" name="Guest_Name" required class="w-full px-4 py-3 rounded-xl border border-brand-sand focus:outline-none focus:ring-2 focus:ring-brand-sage focus:border-transparent transition-all bg-brand-light text-brand-dark">
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-brand-dark/80 mb-2">Email Address</label>
-                        <input type="email" name="email" required class="w-full px-4 py-3 rounded-xl border border-brand-sand focus:outline-none focus:ring-2 focus:ring-brand-sage focus:border-transparent transition-all bg-brand-light text-brand-dark">
-                    </div>
-                </div>
+            <div class="form-grid-2" style="margin-bottom:24px;">
+              <div>
+                <label for="checkIn" style="display:block; margin-bottom:8px; font-size:14px; font-weight:500;">Check-in Date</label>
+                <input id="checkIn" class="field" type="date" name="Check_In_Date" required>
+              </div>
+              <div>
+                <label for="checkOut" style="display:block; margin-bottom:8px; font-size:14px; font-weight:500;">Check-out Date</label>
+                <input id="checkOut" class="field" type="date" name="Check_Out_Date" required>
+              </div>
+            </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div>
-                        <label class="block text-sm font-medium text-brand-dark/80 mb-2">Check-in Date</label>
-                        <input type="date" name="Check_In_Date" required class="w-full px-4 py-3 rounded-xl border border-brand-sand focus:outline-none focus:ring-2 focus:ring-brand-sage focus:border-transparent transition-all bg-brand-light text-brand-dark">
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-brand-dark/80 mb-2">Check-out Date</label>
-                        <input type="date" name="Check_Out_Date" required class="w-full px-4 py-3 rounded-xl border border-brand-sand focus:outline-none focus:ring-2 focus:ring-brand-sage focus:border-transparent transition-all bg-brand-light text-brand-dark">
-                    </div>
-                </div>
+            <div style="margin-bottom:24px;">
+              <label for="guests" style="display:block; margin-bottom:8px; font-size:14px; font-weight:500;">Number of Guests</label>
+              <select id="guests" class="select-field" name="Number_of_Guests">
+                <option value="1">1 Person</option>
+                <option value="2" selected>2 People</option>
+              </select>
+            </div>
 
-                <div>
-                    <label class="block text-sm font-medium text-brand-dark/80 mb-2">Number of Guests</label>
-                    <select name="Number_of_Guests" class="w-full px-4 py-3 rounded-xl border border-brand-sand focus:outline-none focus:ring-2 focus:ring-brand-sage focus:border-transparent transition-all bg-brand-light text-brand-dark">
-                        <option value="1">1 Person</option>
-                        <option value="2" selected>2 People</option>
-                    </select>
-                </div>
-
-                <button type="submit" id="submitBtn" class="w-full bg-brand-sage text-white mt-4 py-4 rounded-xl font-medium hover:bg-[#5a6855] transition-colors shadow-sm text-lg flex justify-center items-center">
-                    Send Inquiry
-                </button>
-            </form>
+            <button type="submit" id="submitBtn" class="btn-primary">Send Inquiry</button>
+          </form>
         </div>
+      </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="bg-brand-dark text-brand-light py-12 text-center mt-10">
-        <h4 class="text-xl font-medium mb-2 opacity-90">Kalmaru Haven</h4>
-        <p class="text-brand-light/60 text-sm mb-6 font-light">General Luna, Siargao Island, Philippines</p>
-        <p class="text-brand-light/40 text-xs">© 2026 Kalmaru Haven. All rights reserved.</p>
+    <footer style="background:#4a463d; color:#e8e4d9; text-align:center; padding:48px 24px; margin-top:20px;">
+      <h4 style="margin:0 0 8px; font-size:22px; font-weight:500;">Kalmaru Haven</h4>
+      <p style="margin:0 0 18px; color:rgba(232,228,217,0.65); font-size:14px; font-weight:300;">General Luna, Siargao Island, Philippines</p>
+      <p style="margin:0; color:rgba(232,228,217,0.45); font-size:12px;">© 2026 Kalmaru Haven. All rights reserved.</p>
     </footer>
+  </div>
 
-    <!-- Background Script connecting to your private Google Sheet -->
-    <script>
-        // PASTE YOUR GOOGLE APP SCRIPT URL HERE 👇
-        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw4mM10c0JFwrxjU-8w8EeLaFApzYodJ25bGib3TntDhcoSiZd_ddAP7QaoItfZ4PMcdw/exec';
+  <script>
+    // PASTE YOUR GOOGLE APP SCRIPT URL HERE 👇
+    const GOOGLE_SCRIPT_URL = 'PASTE_YOUR_WEB_APP_URL_HERE';
+
+    const form = document.getElementById('bookingForm');
+    const btn = document.getElementById('submitBtn');
+    const successDiv = document.getElementById('successMessage');
+    const formMessage = document.getElementById('formMessage');
+    const checkInInput = document.getElementById('checkIn');
+    const checkOutInput = document.getElementById('checkOut');
+
+    // Safe, time-zone accurate date logic
+    const today = new Date();
+    const offset = today.getTimezoneOffset() * 60000;
+    const localToday = (new Date(today - offset)).toISOString().split("T")[0];
+    
+    checkInInput.min = localToday;
+
+    // Force Check-out to be at least +1 Day after Check-in
+    checkInInput.addEventListener('change', function () {
+      if (this.value) {
+        const selectedDate = new Date(this.value);
+        selectedDate.setDate(selectedDate.getDate() + 1); 
+        const nextDay = selectedDate.toISOString().split("T")[0];
         
-        const form = document.forms['bookingForm'];
-        const btn = document.getElementById('submitBtn');
-        const successDiv = document.getElementById('successMessage');
+        checkOutInput.min = nextDay; 
+        
+        // Auto-correct if they pick an invalid checkout date
+        if (checkOutInput.value && checkOutInput.value <= this.value) {
+          checkOutInput.value = nextDay;
+        }
+      }
+    });
 
-        form.addEventListener('submit', e => {
-            e.preventDefault(); 
-            
-            // Change button text to show it's working
-            btn.innerHTML = 'Sending... 🌴';
-            btn.disabled = true;
-            btn.classList.add('opacity-70', 'cursor-not-allowed');
+    function showMessage(message, type) {
+      formMessage.textContent = message;
+      formMessage.classList.remove('hidden-safe');
 
-            // Send standard FormData directly to Google Apps Script
-            fetch(GOOGLE_SCRIPT_URL, { 
-                method: 'POST', 
-                body: new FormData(form),
-                mode: 'no-cors' // 🌟 THIS IS THE MAGIC FIX! It tells Google to skip the security receipt 🌟
-            })
-            .then(() => {
-                // Because we used 'no-cors', it bypasses the error! 
-                // We show the happy message instantly.
-                form.classList.add('hidden');
-                successDiv.classList.remove('hidden');
-                successDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            })
-            .catch(error => {
-                console.error('Error!', error.message);
-                alert('Oops! There was a connection error. Please try again.');
-                btn.innerHTML = 'Send Inquiry';
-                btn.disabled = false;
-                btn.classList.remove('opacity-70', 'cursor-not-allowed');
-            });
+      if (type === 'success') {
+        formMessage.style.background = '#dcfce7';
+        formMessage.style.color = '#166534';
+        formMessage.style.border = '1px solid #bbf7d0';
+      } else {
+        formMessage.style.background = '#fee2e2';
+        formMessage.style.color = '#991b1b';
+        formMessage.style.border = '1px solid #fecaca';
+      }
+    }
+
+    function hideMessage() {
+      formMessage.textContent = '';
+      formMessage.classList.add('hidden-safe');
+      formMessage.style.background = '';
+      formMessage.style.color = '';
+      formMessage.style.border = '';
+    }
+
+    function validateDates() {
+      const checkIn = checkInInput.value;
+      const checkOut = checkOutInput.value;
+
+      if (!checkIn || !checkOut) {
+        showMessage('Please select both check-in and check-out dates.', 'error');
+        return false;
+      }
+
+      if (checkOut <= checkIn) {
+        showMessage('Check-out date must be at least 1 day after check-in date.', 'error');
+        return false;
+      }
+
+      return true;
+    }
+
+    form.addEventListener('submit', async function (e) {
+      e.preventDefault();
+      hideMessage();
+
+      if (!form.reportValidity()) return;
+      if (!validateDates()) return;
+
+      btn.textContent = 'Sending... 🌴';
+      btn.disabled = true;
+
+      try {
+        // The bulletproof no-cors fetch method
+        await fetch(GOOGLE_SCRIPT_URL, {
+          method: 'POST',
+          body: new FormData(form),
+          mode: 'no-cors' // Crucial to prevent Google's CORS block
         });
-    </script>
+
+        // Because of no-cors, we don't parse JSON. If it didn't throw an error, it worked!
+        form.style.display = 'none';
+        successDiv.classList.remove('hidden-safe');
+        successDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+      } catch (error) {
+        console.error(error);
+        showMessage('There was a connection error. Please ensure you are connected to the internet.', 'error');
+        btn.textContent = 'Send Inquiry';
+        btn.disabled = false;
+      }
+    });
+  </script>
 </body>
 </html>
